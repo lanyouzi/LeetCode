@@ -18,3 +18,12 @@ where $di$ and $dj$ represent the offset of coordinates.
 ### Divide-and-Conquer
 
 ### Graph-related
+
+### Monotone Priority Stack
+
+### Algorithm
+
+#### Aho-Corasick Automaton
+
+1. Construct Trie Tree
+2. Construct Fail Point(BFS)

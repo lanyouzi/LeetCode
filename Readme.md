@@ -27,6 +27,20 @@ dp[n][i][j]=\frac{1}{8}\sum{dp[n-1][i+di][j+dj]}
 $$
 where $di$ and $dj$ represent the offset of coordinates.
 
+### Binary Search
+
+1. [668]乘法表中第k小的数
+由于 mm 和 nn 很大，直接求出所有数字然后找到第 kk 小会超出时间限制。不妨考虑一个反向问题：对于乘法表中的数字 xx，它是乘法表中第几小的数字？
+求第几小等价于求有多少数字不超过 xx。我们可以遍历乘法表的每一行，对于乘法表的第$i$行，其数字均为$i$的倍数，因此不超过$x$的数字有$min(\lfloor\frac{x}{i}\rfloor,n)$个，所以整个乘法表不超过$x$的数字个数为
+$$
+\sum_{i=1}^{m}min(\lfloor\frac{x}{i}\rfloor,n)
+$$
+由于$i\le\lfloor\frac{x}{n}\rfloor$时有$\lfloor\frac{x}{i}\rfloor\ge n$，上式可简化为
+$$
+\lfloor\frac{x}{n}\rfloor\cdot n+\sum_{i=\lfloor\frac{x}{n}\rfloor+1}^{m}\lfloor\frac{x}{i}\rfloor
+$$
+由于$x$越大上式越大，因此可以二分$x$查找答案。二分的初始边界为乘法表的元素范围，即$[1,mn]$。
+
 ### Tree-Related
 
 ### BFS

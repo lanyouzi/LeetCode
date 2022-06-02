@@ -43,6 +43,12 @@ $$
 
 ### Tree-Related
 
+#### BST
+
+1. [450]删除二叉搜索树中的节点
+
+### Graph-related
+
 ### BFS
 
 1. [310]最小高度树：从度为1的点开始BFS
@@ -56,8 +62,6 @@ $$
 树状数组支持两种操作：`单点修改`（更改数组中一个元素的值）和`区间查询`（查询一个区间内所有元素和），时间复杂度均为O(logn)。
 
 1. [307]区域和检索-数组可修改
-
-### Graph-related
 
 ### Divide-and-Conquer
 
@@ -90,9 +94,9 @@ $$
 1. Construct Trie Tree
 2. Construct Fail Point(BFS)
 
-### Operation
+## Operation
 
-#### Int
+### Bit Manipulation
 
 - 计算整数x的二进制表示有多少个1：`x&x-1`可以消除x最低位的1，while循环计数，直到x=0即可。
 - 只保留整数x最低位的1：`x&-x`，即树状数组中的lowbit

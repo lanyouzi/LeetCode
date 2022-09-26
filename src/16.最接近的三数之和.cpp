@@ -5,9 +5,10 @@
  */
 
 // @lc code=start
+
+// double-pointer
 class Solution {
    public:
-   // double-pointer
     int threeSumClosest(vector<int>& nums, int target) {
         sort(nums.begin(), nums.end(), less<int>());
         int n = nums.size(), ans = nums[0] + nums[1] + nums[2];

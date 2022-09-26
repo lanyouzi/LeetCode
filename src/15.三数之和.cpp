@@ -19,7 +19,7 @@ class Solution {
             int target = -nums[first];  // b+c=-a
             // enumerate b
             for (int second = first + 1; second < n; second++) {
-                if (second > first + 1 && nums[second] == nums[second - 1]) {
+                if (second > first + 1 && nums[second] == nums[second - 1]) {   // avoid duplicated answers
                     continue;
                 }
                 // find the rightest c that makes b+c <= -a

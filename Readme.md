@@ -18,6 +18,10 @@
 
 ## Solution
 
+### Greedy
+
+1. [769] 最多能完成排序的块
+
 ### Dynamic Programming
 
 1. [688] 马在棋盘上的概率

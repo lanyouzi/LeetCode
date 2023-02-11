@@ -33,6 +33,8 @@
    
    where $di$ and $dj$ represent the offset of coordinates.
 
+2.[1223] 投骰子模拟
+
 ### Binary Search
 
 1. [668]乘法表中第k小的数

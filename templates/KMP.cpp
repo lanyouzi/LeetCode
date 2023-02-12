@@ -1,3 +1,13 @@
+/*** 
+ * @Author: lanyouzi lanyouzi@zju.edu.cn
+ * @Date: 2022-09-29 11:21:49
+ * @LastEditors: lanyouzi lanyouzi@zju.edu.cn
+ * @LastEditTime: 2023-02-11 10:48:34
+ * @FilePath: \LeetCode\templates\KMP.cpp
+ * @Description: 
+ * @
+ * @Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
+ */
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -39,9 +49,9 @@ int kmp_exclude(const string& txt, const string& pat) {
 vector<int> init_include(const string& pat) {
     int n = pat.size();
     vector<int> next(n, 0);
-    int j = 0;
     for (int i = 1; i < n; ++i) {
-        while (j && pat[i] != pat[j])
+        int j = next[i - 1];
+        while (j>0 && pat[i] != pat[j])
             j = next[j - 1];
         if (pat[i] == pat[j]) {
             j++;
@@ -55,7 +65,6 @@ int kmp_include(const string& txt, const string& pat) {
     int tlen = txt.size(), plen = pat.size();
     int i = 0, j = 0;
     vector<int> next = init_include(pat);
-
     while (i < tlen && j < plen) {
         // 公共前缀串长度为0，重新匹配模式串
         // 当前字符相符，后进一位
@@ -71,6 +80,20 @@ int kmp_include(const string& txt, const string& pat) {
     }
     return -1;
 }
+
+// 另一种KMP写法
+vector<int> find_occurrences(const string& txt, const string& pat) {
+  string cur = pat + '#' + txt;
+  int tlen = txt.size(), plen = pat.size();
+  vector<int> v;
+  vector<int> next = init_include(cur);
+  for (int i = plen + 1; i <= tlen + plen; i++) {
+    if (next[i] == plen)
+      v.push_back(i - 2 * plen);
+  }
+  return v;
+}
+
 int main() {
     string s = "abbabdabbabe";
     string pat = "abbabe";

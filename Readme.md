@@ -33,6 +33,7 @@
 
    where $di$ and $dj$ represent the offset of coordinates.
 2. [1223] 投骰子模拟
+3. [518] 零钱兑换II
 
 ### Binary Search
 

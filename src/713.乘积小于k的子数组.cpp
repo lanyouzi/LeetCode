@@ -24,7 +24,7 @@ class Solution {
 };
 
 /*
-    、// 自力更生：滑动窗口
+    // 自力更生：滑动窗口
     int numSubarrayProductLessThanK(vector<int>& nums, int k) {
         int n = nums.size();
         int ans = 0;

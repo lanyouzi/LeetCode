@@ -6,20 +6,20 @@
 
 // @lc code=start
 class Solution {
-   public:
+public:
+    // 双指针滑动窗口
     int numSubarrayProductLessThanK(vector<int>& nums, int k) {
-        int n = nums.size();
-        int ans = 0;
-        int i = 0, j = 0;
-        int sum = 1;
-        while (j < n) {
-            sum*=nums[j++];
-            while (i<j && sum>=k) {
-                sum/=nums[i++];
+        int n = nums.size(), ret = 0;
+        int prod = 1, i = 0;
+        for (int j = 0; j < n; j++) {
+            prod *= nums[j];
+            while (i <= j && prod >= k) {
+                prod /= nums[i];
+                i++;
             }
-            ans+=(j-i);
+            ret += j - i + 1;   // 此时以下标j为尾元素的序列有j-i+1个
         }
-        return ans;
+        return ret;
     }
 };
 

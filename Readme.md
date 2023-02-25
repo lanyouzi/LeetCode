@@ -21,6 +21,7 @@
 ### Greedy
 
 1. [769] 最多能完成排序的块
+2. [1326] 灌溉花园的最少水龙头数目
 
 ### Dynamic Programming
 
@@ -34,6 +35,7 @@
    where $di$ and $dj$ represent the offset of coordinates.
 2. [1223] 投骰子模拟
 3. [518] 零钱兑换II
+4. [1140] 石子游戏II
 
 ### Binary Search
 
@@ -117,12 +119,14 @@
 
 1. [567] 字符串的排列
 
-### Algorithm
-
 #### Aho-Corasick Automaton (AC自动机)
 
 1. Construct Trie Tree
 2. Construct Fail Point(BFS)
+
+#### Gambling
+
+1. [1140] 石子游戏II
 
 ## Operation
 
@@ -130,3 +134,4 @@
 
 - 计算整数x的二进制表示有多少个1：`x&x-1`可以消除x最低位的1，while循环计数，直到x=0即可。
 - 只保留整数x最低位的1：`x&-x`，即树状数组中的lowbit
+- 循环码：`x^(x>>1)`

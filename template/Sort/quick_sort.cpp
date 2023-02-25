@@ -11,24 +11,19 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void quicksort(vector<int> &v, int l, int r) {
+void quick_sort(vector<int> &v, int l, int r) {
     if (l>=r) {
         return;
     }
     int i = l, j = r;
-    int target = v[i];
     while (i<j) {
-        if (v[i])
+        if (v[i]>v[j]) {
+            swap(v[i], v[j]);
+            i++;
+        } else {
+            j--;
+        }
     }
-    quicksort(v, l, i-1);
-    quicksort(v, i+1, r);
-
-    
-}
-int main() {
-    vector<int> v = {2, 5, 7, 1, 8};
-    // quicksort(v, 0, v.size()-1);
-    for (auto &item:v) {
-        cout << item << " ";
-    }
+    quick_sort(v, l, i-1);
+    quick_sort(v, i+1, r);
 }

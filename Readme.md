@@ -2,7 +2,9 @@
 
 [toc]
 
-## Preface
+## Insight
+
+### Interval Problem
 
 1. 数组不变，求区间和：「前缀和」、「树状数组」、「线段树」
 2. 多次修改某个数（单点），求区间和：「树状数组」、「线段树」
@@ -16,6 +18,11 @@
 - 多次将某个区间变成同一个数，用「线段树」
 - 其他情况，用「树状数组」
 
+### Note
+
+1. [6367. 求出最多标记下标 - 力扣（Leetcode）](https://leetcode.cn/problems/find-the-maximum-number-of-marked-indices/description/)：匹配最后$n/2$对，所以 `right`从数组后半部开始查找。
+2. [33. 搜索旋转排序数组 - 力扣（Leetcode）](https://leetcode.cn/problems/search-in-rotated-sorted-array/description/?favorite=2cktkvj)：主要矛盾并不是 `target`与 `nums[mid]`的大小，而是前后是否有序
+
 ## Solution
 
 ### Greedy
@@ -23,7 +30,6 @@
 1. [769] 最多能完成排序的块
 2. [1326] 灌溉花园的最少水龙头数目
 3. [1247] 交换字符使得字符串相同
-
 
 ### Dynamic Programming
 
@@ -70,6 +76,12 @@
 1. [440] 字典序的第k小数字
 2. [1233] 删除子文件夹
 
+#### Binary Index Tree（树状数组）
+
+树状数组支持两种操作：`单点修改`（更改数组中一个元素的值）和 `区间查询`（查询一个区间内所有元素和），时间复杂度均为O(logn)。
+
+1. [307]区域和检索-数组可修改
+
 ### Graph-related
 
 ### BFS
@@ -81,11 +93,43 @@
 
 ### DFS
 
-#### Binary Index Tree（树状数组）
+```c++
+int ans = 最坏情况, now;  // now 为当前答案
 
-树状数组支持两种操作：`单点修改`（更改数组中一个元素的值）和 `区间查询`（查询一个区间内所有元素和），时间复杂度均为O(logn)。
+void dfs(传入数值) {
+  if (到达目的地) ans = 从当前解与已有解中选最优;
+  for (遍历所有可能性)
+    if (可行) {
+      进行操作;
+      dfs(缩小规模);
+      撤回操作;
+    }
+}
+```
 
-1. [307]区域和检索-数组可修改
+#### Traceback （回溯=DFS+剪枝）
+
+- `constraint()`：约束条件，在扩展节点处减去不满足约束的子树；
+- `bound()`：限界函数，减去得不到最优解的子树。
+
+```c++
+vector<int> res; //解空间
+void backtrack(int i){
+    // 若不符合约束和限界
+    if(!bound(i) && !constraint(i))
+	return;
+    //搜索到空间树的叶子节点，添加一个可行解
+    if(i>=n){
+	res.push_back(str);
+        return;
+    }
+    // 对解空间树的所有分枝（抽象为所有邻接点）一一搜索
+    //上界与下界形成解空间树的数量
+    for(int j=LOWER_BOUND; j<=UPPER_BOUND; j++){
+    	backtrack(i+1);
+    }
+}
+```
 
 ### Divide-and-Conquer
 
@@ -121,14 +165,18 @@
 
 1. [567] 字符串的排列
 
-#### Aho-Corasick Automaton (AC自动机)
+### Aho-Corasick Automaton (AC自动机)
 
 1. Construct Trie Tree
 2. Construct Fail Point(BFS)
 
-#### Gambling
+### Gambling
 
 1. [1140] 石子游戏II
+
+### Others
+
+1. [1255] 得分最高的单词集合：状态压缩/回溯
 
 ## Operation
 

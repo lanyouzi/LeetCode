@@ -6,29 +6,39 @@
 
 // @lc code=start
 class Solution {
-   public:
+public:
     vector<int> findSubstring(string s, vector<string>& words) {
-        map<string, int> mp1;
-        map<string, int> mp2;
+        map<string, int> need;
         vector<int> ans;
         int word_size = words[0].size();
-        int n = words.size() * word_size;
+        int need_size = words.size() * word_size;
+        int n = s.size();
         for (auto& word : words) {
-            mp1[word] += 1;
+            need[word] ++;
         }
-        for (int i = 0; i + n <= s.size(); i++) {
-            mp2.clear();
-            string substr = s.substr(i, n);
-            int j;
-            for (j = 0; j + word_size <= substr.size(); j += word_size) {
-                string cword = substr.substr(j, word_size);
-                mp2[cword] += 1;
-                if (mp2[cword] > mp1[cword]) {
-                    break;
+        for (int i=0; i<word_size && i+need_size<=n; i++) {
+            map<string, int> cur = need;
+            int left = i, right = i;
+            while (right+word_size<=n) {
+                string cword;
+                if (right-left >= need_size) {      // 收缩左端点
+                    cword = s.substr(left, word_size);
+                    cur[cword]++;
+                    if (cur[cword]==0) {
+                        cur.erase(cword);
                 }
-            }
-            if (j == substr.size()) {
-                ans.emplace_back(i);
+                    left+=word_size;
+                }
+                cword = s.substr(right, word_size); // 扩张右端点
+                right+=word_size;
+                cur[cword]--;
+                if (cur[cword]==0) {
+                    cur.erase(cword);
+                }
+                if (cur.empty()) {
+                    ans.emplace_back(left);
+                }
+                
             }
         }
         return ans;

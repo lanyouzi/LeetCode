@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int binary_saerch(vector<int> &v, int target, int l, int r) {
+int binary_search(vector<int> &v, int target, int l, int r) {
     if (l>=r) {
         return -1;
     }
@@ -9,9 +9,9 @@ int binary_saerch(vector<int> &v, int target, int l, int r) {
     if (v[mid]==target) {
         return mid;
     } else if (v[mid]<target) {
-        return binary_saerch(v, target, mid+1, r);
+        return binary_saerch(v, target, mid + 1, r);
     } else {
-        return binary_saerch(v, target, l, mid-1);
+        return binary_saerch(v, target, l, mid - 1);
     }
 }
 

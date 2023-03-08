@@ -7,7 +7,7 @@
 // @lc code=start
 class Solution {
 public:
-    // 双指针滑动窗口
+    // 双指针，每次右移一步r寻找合适的l
     int numSubarrayProductLessThanK(vector<int>& nums, int k) {
         int n = nums.size(), ret = 0;
         int prod = 1, i = 0;
@@ -45,6 +45,5 @@ public:
         }
         return ans;
     }
-
  */
 // @lc code=end

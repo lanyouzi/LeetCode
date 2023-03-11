@@ -2,7 +2,7 @@
  * @Author: lanyouzi lanyouzi@zju.edu.cn
  * @Date: 2023-03-04 16:05:37
  * @LastEditors: lanyouzi lanyouzi@zju.edu.cn
- * @LastEditTime: 2023-03-08 14:14:19
+ * @LastEditTime: 2023-03-08 15:25:22
  * @FilePath: DoublePointers.cpp
  * @Description: 
  * @
@@ -24,7 +24,7 @@ using namespace std;
 模板中的 sums需要根据题目意思具体去修改，本题是求和题目因此把sums定义成整数用于求和；如果是计数题目，就需要改成字典用于计数。当左右指针发生变化的时候，都需要更新sums。
  */
 
-int doule_pointer(vector<int>& nums, int condition) {
+int doule_pointers(vector<int>& nums, int condition) {
     // 数组长度
     int n = nums.size();
     // 双指针，表示当前遍历的区间为[left, right]（闭区间）
@@ -44,7 +44,7 @@ int doule_pointer(vector<int>& nums, int condition) {
             // 左指针右移
             left++;
         }
-        // 到 while 结束时，我们找到了一个符合题意要求的 子数组/子串
+        // 到 while 结束时，我们找到了一个符合题意要求的子数组/子串
         ans = max(ans, right - left + 1);
         // 移动右指针，去探索下一个区间
         right++;

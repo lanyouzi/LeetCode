@@ -37,11 +37,12 @@
 1. [11] 盛最多水的容器
 2. [15] 三数之和
 3. [16] 最接近的三数之和
-4. [209] 长度最小的子数组：思路略有不同
-5. [436] 寻找右区间
-6. [713] 乘积小于k的子数组
-7. [1004] 最大连续1的个数 III
-8. [2379] 得到 K 个黑块的最少涂色次数
+4. [42] 接雨水
+5. [209] 长度最小的子数组：思路略有不同
+6. [436] 寻找右区间
+7. [713] 乘积小于k的子数组
+8. [1004] 最大连续1的个数 III
+9. [2379] 得到 K 个黑块的最少涂色次数
 
 #### Slicing Window
 
@@ -59,7 +60,7 @@
 
 1. [135] 分发糖果
 2. [1590] 使数组和能被 P 整除
-3. [面试题 17.05.] 字母与数字
+3. [面试题 17.05] 字母与数字
 
 #### Binary Search
 
@@ -89,19 +90,30 @@
 
 ### Dynamic Programming
 
-1. [688] 马在棋盘上的概率
+1. [42] 接雨水
+
+2. [688] 马在棋盘上的概率
    Let $dp[n][i][j]$ represent the probability of remaining on the chessboard after $n$ steps when starting at point $(i,j)$. When $(i,j)$ is not on the chessboard, $dp[n][i][j]$ is 0; specially, $dp[0][i][j]$ is $1$. The state transition equation is
 
-   $$
-   dp[n][i][j]=\frac{1}{8}\sum{dp[n-1][i+di][j+dj]}
-   $$
+$$
+dp[n][i][j]=\frac{1}{8}\sum{dp[n-1][i+di][j+dj]}
+$$
 
-   where $di$ and $dj$ represent the offset of coordinates.
-2. [1223] 投骰子模拟
+    where$di$ and $dj$ represent the offset of coordinates.
+
 3. [518] 零钱兑换II
-4. [1140] 石子游戏II
+4. [1223] 投骰子模拟
+5. [1140] 石子游戏II
 
 ### Tree-Related
+
+#### BFS
+
+1. [310] 最小高度树：从度为1的点开始BFS
+
+#### DFS
+
+1. 树的直径：树形DP/搜两次，看作无向无环图
 
 #### BST（二叉搜索树）
 
@@ -118,16 +130,15 @@
 
 树状数组支持两种操作：`单点修改`（更改数组中一个元素的值）和 `区间查询`（查询一个区间内所有元素和），时间复杂度均为O(logn)。
 
-1. [307]区域和检索-数组可修改
+1. [307] 区域和检索-数组可修改
 
 ### Graph-Related
 
 ### BFS
 
-1. [310] 最小高度树：从度为1的点开始BFS
-2. [854] 相似度为k的字符串：每次交换不同的字符
-3. [1129] 颜色交替的最短路径
-4. [1210] 穿过迷宫的最少移动次数
+1. [854] 相似度为k的字符串：每次交换不同的字符
+2. [1129] 颜色交替的最短路径：Dijkstra
+3. [1210] 穿过迷宫的最少移动次数
 
 ### DFS
 
@@ -149,7 +160,7 @@ void dfs(传入数值) {
 
 #### Traceback （回溯=DFS+剪枝）
 
-- `constraint()`：约束条件，在扩展节点处减去不满足约束的子树；
+- `constraint()`：约束函数，在扩展节点处减去不满足约束的子树；
 - `bound()`：限界函数，减去得不到最优解的子树。
 
 ```c++
@@ -170,6 +181,9 @@ void backtrack(int i){
     }
 }
 ```
+
+1. [39] 组合总数
+2. [40] 组合总数 II：很有意思的剪枝方式（排序后去重）
 
 ### Monotone Priority Stack
 

@@ -5,8 +5,8 @@ using namespace std;
 
 
 // array version
-const int MAXN = 1e5 + 10;
-int trie[MAXN][26];         // trie[i][j] represent the index of j-th child of i-th node
+const int MAXN = 1e5 + 10;  // maximum number of nodes
+int trie[MAXN][26];         // trie[i][j] represents the index of j-th child of i-th node
 bool flag[MAXN];            // flag[i] represent if i-th string is a complete word
 int total = 0;              // total number of words including prefix
 void insert(string s)       // insert given string [s] into the trie
@@ -46,7 +46,7 @@ bool startwith(const string& s)  // query if there is string starting with curre
             p = trie[p][ch];
         }
     }
-    return true;
+    return true;        // different from query
 }
 
 // pointer version
@@ -69,7 +69,7 @@ void insert(Trie* root, const vector<string> &strs, int i) {
 }
 
 // 判断strs是否为某一序列
-bool startswith(Trie* root, const vector<string> &strs) {
+bool query(Trie* root, const vector<string> &strs) {
     for (auto str:strs) {
         if (!root->children.count(str)) {
             return false;

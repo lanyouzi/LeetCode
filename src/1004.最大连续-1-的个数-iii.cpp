@@ -1,3 +1,13 @@
+/*** 
+ * @Author: lanyouzi lanyouzi@zju.edu.cn
+ * @Date: 2022-09-20 14:59:42
+ * @LastEditors: lanyouzi lanyouzi@zju.edu.cn
+ * @LastEditTime: 2023-03-08 13:35:56
+ * @FilePath: 1004.最大连续-1-的个数-iii.cpp
+ * @Description: 
+ * @
+ * @Copyright (c) 2023 by ${git_name}, All Rights Reserved. 
+ */
 /*
  * @lc app=leetcode.cn id=1004 lang=cpp
  *
@@ -15,7 +25,7 @@ class Solution {
             if (nums[right] != p) {
                 sum++;
             }
-            if (sum > k) {
+            while (sum > k) {       // while可以改为if
                 if (nums[left] != p) {
                     sum--;
                 }

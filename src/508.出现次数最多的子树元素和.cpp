@@ -18,63 +18,26 @@
  */
 class Solution {
 public:
-    vector<int> ans;
-    int max_occur;
-    map<int, int> mp;
-    int getSubTreeSum(TreeNode* root) {
-        if (root==nullptr) {
+    int max_cnt;
+    map<int, int> mp;   // <sum, num>
+
+    int dfs(TreeNode* root) {
+        if (root == nullptr) {
             return 0;
         }
-        return root->val + getSubTreeSum(root->left) + getSubTreeSum(root->right);
-    }
-    void dfs(TreeNode* root) {
-        if (root == nullptr) {
-            return;
-        }
-        int sum = getSubTreeSum(root);
+        int sum = root->val + dfs(root->left) + dfs(root->right);
         mp[sum]++;
-        if (mp[sum]>max_occur) {
-            max_occur = mp[sum];
-            ans.clear();
-            ans.push_back(sum);
-        } else if (mp[sum]==max_occur) {
-            ans.push_back(sum);
-        }
-        dfs(root->left);
-        dfs(root->right);
+        max_cnt = max(max_cnt, mp[sum]);
+        return sum;
     }
     vector<int> findFrequentTreeSum(TreeNode* root) {
-        ans.clear();
-        max_occur = 0;
         dfs(root);
+        vector<int> ans;
+        for (auto &[x, y]:mp) {
+            if (y==max_cnt) {
+                ans.emplace_back(x);
+            }
+        }
         return ans;
-
     }
 };
-// @lc code=end
-
-// class Solution {
-//     unordered_map<int, int> cnt;
-//     int maxCnt = 0;
-
-//     int dfs(TreeNode *node) {
-//         if (node == nullptr) {
-//             return 0;
-//         }
-//         int sum = node->val + dfs(node->left) + dfs(node->right);
-//         maxCnt = max(maxCnt, ++cnt[sum]);
-//         return sum;
-//     }
-
-// public:
-//     vector<int> findFrequentTreeSum(TreeNode *root) {
-//         dfs(root);
-//         vector<int> ans;
-//         for (auto &[s, c]: cnt) {
-//             if (c == maxCnt) {
-//                 ans.emplace_back(s);
-//             }
-//         }
-//         return ans;
-//     }
-// };

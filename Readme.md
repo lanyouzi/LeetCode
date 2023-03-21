@@ -2,7 +2,7 @@
 
 [toc]
 
-## Insight
+## Preliminary
 
 ### Interval Problem
 
@@ -22,30 +22,55 @@
 
 1. [6367. 求出最多标记下标 - 力扣（Leetcode）](https://leetcode.cn/problems/find-the-maximum-number-of-marked-indices/description/)：匹配最后$n/2$对，所以 `right`从数组后半部开始查找。
 2. [33. 搜索旋转排序数组 - 力扣（Leetcode）](https://leetcode.cn/problems/search-in-rotated-sorted-array/description/?favorite=2cktkvj)：主要矛盾并不是 `target`与 `nums[mid]`的大小，而是前后是否有序
+3. 先操作再判断，符合正常逻辑；先判断再操作，需要在循环中额外加一层判断
 
 ## Solution
 
-### Greedy
+### String
 
-1. [769] 最多能完成排序的块
-2. [1326] 灌溉花园的最少水龙头数目
-3. [1247] 交换字符使得字符串相同
+#### Double Pointers
 
-### Dynamic Programming
+> 以r为基础指针并根据题目要求来移动l或者保持l不动，同时ans由每一步的r-l来更新。需要移动l指针时，可能移动多个单位以满足要求。通常用于求解最长子串等问题。
 
-1. [688] 马在棋盘上的概率
-   Let $dp[n][i][j]$ represent the probability of remaining on the chessboard after $n$ steps when starting at point $(i,j)$. When $(i,j)$ is not on the chessboard, $dp[n][i][j]$ is 0; specially, $dp[0][i][j]$ is $1$. The state transition equation is
+把双指针技巧再分为两类，一类是同向移动的「快慢指针」，另一类是相向移动的「左右指针」。前者解决主要解决链表中的问题，比如典型的判定链表中是否包含环；后者主要解决数组（或者字符串）中的问题，比如二分查找。
 
-   $$
-   dp[n][i][j]=\frac{1}{8}\sum{dp[n-1][i+di][j+dj]}
-   $$
+1. [11] 盛最多水的容器
+2. [15] 三数之和
+3. [16] 最接近的三数之和
+4. [42] 接雨水
+5. [209] 长度最小的子数组：思路略有不同
+6. [436] 寻找右区间
+7. [713] 乘积小于k的子数组
+8. [1004] 最大连续1的个数 III
+9. [1616] 分割两个字符串得到回文串
+10. [2379] 得到 K 个黑块的最少涂色次数
 
-   where $di$ and $dj$ represent the offset of coordinates.
-2. [1223] 投骰子模拟
-3. [518] 零钱兑换II
-4. [1140] 石子游戏II
+### Greedy Search
+
+1. [1798] 你能构造出连续值的最大数目
 
 ### Binary Search
+
+#### Slicing Window
+
+> 以l为基础指针，并且l~r看做一个窗口，r不断右移，根据题目要求来右移一次l或者保持l不动，特点是r-l始终不减，ans为最终的r-l。当需要移动l指针时，每次必定只移动一个单位。
+
+#### Value
+
+1. [30] 串联所有单词的子串
+2. [438] 找到字符串中所有字母异位词
+3. [2024] 考试的最大困扰度
+
+#### Prefix Sum
+
+> 前缀和+哈希表（查找）是一种求区间问题的常用解法。为记录空字串的变量，通常需要在map初始化时加入{0, -1}，表示空字符串的出现下标为-1。
+
+1. [135] 分发糖果
+2. [1590] 使数组和能被 P 整除
+3. [2488] 统计中位数为 K 的子数组
+4. [面试题 17.05] 字母与数字
+
+#### Binary Search
 
 1. [668] 乘法表中第k小的数
    由于m和n很大，直接求出所有数字然后找到第k小会超出时间限制。不妨考虑一个反向问题：对于乘法表中的数字 xx，它是乘法表中第几小的数字？
@@ -63,7 +88,40 @@
 
    由于$x$越大上式越大，因此可以二分$x$查找答案。二分的初始边界为乘法表的元素范围，即$[1,mn]$。
 
+### Divide-and-Conquer
+
+### Greedy
+
+1. [769] 最多能完成排序的块
+2. [1326] 灌溉花园的最少水龙头数目
+3. [1247] 交换字符使得字符串相同
+4. [1605] 给定行和列求可行矩阵
+
+### Dynamic Programming
+
+1. [42] 接雨水
+2. [688] 马在棋盘上的概率
+   Let $dp[n][i][j]$ represent the probability of remaining on the chessboard after $n$ steps when starting at point $(i,j)$. When $(i,j)$ is not on the chessboard, $dp[n][i][j]$ is 0; specially, $dp[0][i][j]$ is $1$. The state transition equation is
+
+$$
+dp[n][i][j]=\frac{1}{8}\sum{dp[n-1][i+di][j+dj]}
+$$
+
+    where$di$ and $dj$ represent the offset of coordinates.
+
+3. [518] 零钱兑换II
+4. [1223] 投骰子模拟
+5. [1140] 石子游戏II
+
 ### Tree-Related
+
+#### BFS
+
+1. [310] 最小高度树：从度为1的点开始BFS
+
+#### DFS
+
+1. 树的直径：树形DP/搜两次，看作无向无环图
 
 #### BST（二叉搜索树）
 
@@ -80,18 +138,19 @@
 
 树状数组支持两种操作：`单点修改`（更改数组中一个元素的值）和 `区间查询`（查询一个区间内所有元素和），时间复杂度均为O(logn)。
 
-1. [307]区域和检索-数组可修改
+1. [307] 区域和检索-数组可修改
 
-### Graph-related
+### Graph-Related
 
 ### BFS
 
-1. [310] 最小高度树：从度为1的点开始BFS
-2. [854] 相似度为k的字符串：每次交换不同的字符
-3. [1129] 颜色交替的最短路径
-4. [1210] 穿过迷宫的最少移动次数
+1. [854] 相似度为k的字符串：每次交换不同的字符
+2. [1129] 颜色交替的最短路径：Dijkstra
+3. [1210] 穿过迷宫的最少移动次数
 
 ### DFS
+
+1. [1096] 花括号展开 II
 
 ```c++
 int ans = 最坏情况, now;  // now 为当前答案
@@ -109,7 +168,7 @@ void dfs(传入数值) {
 
 #### Traceback （回溯=DFS+剪枝）
 
-- `constraint()`：约束条件，在扩展节点处减去不满足约束的子树；
+- `constraint()`：约束函数，在扩展节点处减去不满足约束的子树；
 - `bound()`：限界函数，减去得不到最优解的子树。
 
 ```c++
@@ -131,7 +190,8 @@ void backtrack(int i){
 }
 ```
 
-### Divide-and-Conquer
+1. [39] 组合总数
+2. [40] 组合总数 II：很有意思的剪枝方式（排序后去重）
 
 ### Monotone Priority Stack
 
@@ -144,22 +204,6 @@ void backtrack(int i){
    \sum^{\infty}_{k=1}{\lfloor \frac{n}{p^k} \rfloor}
    $$
 2. [1250] 检查好数组
-
-### Double Pointers
-
-1. [11] 盛最多水的容器
-2. [15] 三数之和
-3. [16] 最接近的三数之和
-4. [436] 寻找右区间
-
-### Slicing Window
-
-#### Value
-
-1. [30] 串联所有单词的子串
-2. [713] 乘机小于k的子数组
-3. [1004] 最大连续-1-的个数-iii
-4. [2024] 考试的最大困扰度
 
 #### Map
 

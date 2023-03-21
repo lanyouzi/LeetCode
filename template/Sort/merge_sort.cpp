@@ -54,45 +54,36 @@ ListNode* merge_sort_linklist(ListNode* head) {
 
 // array type
 // [al, ar) v.s. [bl, br)
-vector<int> merge_array(vector<int>& v, int al, int ar, int bl, int br) {
-    size_t i = 0, j = 0, k = 0;
-    size_t alen = ar - al, blen = br - bl;
-    vector<int> c(alen + blen, 0);
-    while (i < alen && j < alen) {
-        if (v[bl + j] < v[al + i]) {  // <!> 先判断 b[j] < a[i]，保证稳定性
-            c[k] = v[bl + j];
-            ++j;
-        } else {
-            c[k] = v[al + i];
-            ++i;
-        }
-        ++k;
+void merge_array(vector<int>& v, int start, int mid, int end) {
+    int k = 0, left = start, right = mid;
+    // vector<int> c(end-start, 0);
+    vector<int> tmp(end-start, 0);
+    while (left < mid && right < end) {
+        tmp[k++] = v[left] < v[right] ? v[left++] : v[right++];
     }
-    // 此时一个数组已空，另一个数组非空，将非空的数组并入 c 中
-    for (; i < alen; ++i, ++k)
-        c[k] = v[al + i];
-    for (; j < alen; ++j, ++k)
-        c[k] = v[bl + j];
-    return c;
+    while (left < mid)
+        tmp[k++] = v[left++];
+    while (right < end)
+        tmp[k++] = v[right++];
+    for (int l = start; l < end; l++)
+        v[l] = tmp[l-start];
+
 }
 
-void merge_sort_array(vector<int>& v, int l, int r) {
-    if (r - l <= 1)
+void merge_sort_array(vector<int>& v, int left, int right) {
+    if (right - left <= 1)
         return;
-    // 分解
-    int mid = l + ((r - l) >> 1);
-    merge_sort_array(v, l, mid);
-    merge_sort_array(v, mid, r);
-    // 合并
-    auto tmp = merge_array(v, l, mid, mid, r);  // pointer-style merge
-    for (int i = l; i < r; ++i)
-        v[i] = tmp[i - l];
+    int mid = left + ((right - left) >> 1);
+    merge_sort_array(v, left, mid);
+    merge_sort_array(v, mid, right);
+    merge_array(v, left, mid, right);
 }
 
 int main() {
-    // vector<int> v = {2, 5, 7, 1, 8};
+    vector<int> v = {2, 5, 7, 1, 8};
+    merge_sort_array(v, 0, 5);
     // quick_sort(v, 0, v.size()-1);
-    // for (auto &item:v) {
-    //     cout << item << " ";
-    // }
+    for (auto& item : v) {
+        cout << item << " ";
+    }
 }

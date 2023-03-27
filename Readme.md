@@ -112,6 +112,7 @@ $$
 3. [518] 零钱兑换II
 4. [1223] 投骰子模拟
 5. [1140] 石子游戏II
+6. [1638] 统计只差一个字符的子串数目
 
 ### Tree-Related
 
@@ -172,11 +173,9 @@ void dfs(传入数值) {
 - `bound()`：限界函数，减去得不到最优解的子树。
 
 ```c++
-vector<int> res; //解空间
+vector<int> res;
+// 子集树问题解空间
 void backtrack(int i){
-    // 若不符合约束和限界
-    if(!bound(i) && !constraint(i))
-	return;
     //搜索到空间树的叶子节点，添加一个可行解
     if(i>=n){
 	res.push_back(str);
@@ -184,8 +183,28 @@ void backtrack(int i){
     }
     // 对解空间树的所有分枝（抽象为所有邻接点）一一搜索
     //上界与下界形成解空间树的数量
-    for(int j=LOWER_BOUND; j<=UPPER_BOUND; j++){
-    	backtrack(i+1);
+    for(int j=0; j<=1; j++){
+	if(bound(i) && constraint(i))
+    	    backtrack(i+1);
+    }
+}
+
+// 排列树问题解空间
+void backtrack(int i){
+    //搜索到空间树的叶子节点，添加一个可行解
+    if(i>=n){
+	res.push_back(str);
+        return;
+    }
+    // 对解空间树的所有分枝（抽象为所有邻接点）一一搜索
+    //上界与下界形成解空间树的数量
+    for(int j=i j<=n; j++){
+	if(bound(i) && constraint(i)) {
+	    swap(x[i], x[j]);
+	    backtrack(i+1);
+	    swap(x[i], x[j])
+	}
+    	  
     }
 }
 ```

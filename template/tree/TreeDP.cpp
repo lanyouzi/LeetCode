@@ -22,18 +22,20 @@
 using namespace std;
 const int maxn = 2e5 + 5;
 string a;
-// 邻接表 e
-vector<int> e[maxn];
+vector<int> e[maxn];    // 邻接表e
 long long ans = 0;
 
+// 令dp[i]点为根的子树中同色联通块的个数，那么如果我们从1号点开始算，最后dp[1]得到的就是整棵树的同色联通块个数。
+// dp[i] = \sum{dp[j]+[color[i]!=color[j]]}
 int dp[maxn];
+
 void dfs(int u, int fa) {
     // 如上图，在dfs之前假设最开始只有u孤零零的一个点
     dp[u] = 1;
     for (int v : e[u]) {
         if (v == fa)
             continue;
-        // 每次新增一个子树v,插到u上
+        // 每次新增一个子树v，插到u上
         dfs(v, u);
         // 转移
         dp[u] += dp[v];
@@ -55,7 +57,6 @@ void dfs1(int u, int fa) {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
     int n;
     cin >> n;
     cin >> a;

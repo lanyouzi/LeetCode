@@ -1,8 +1,8 @@
 /***
  * @Author: lanyouzi lanyouzi@zju.edu.cn
- * @Date: 2023-03-13 18:47:25
+ * @Date: 2023-03-19 10:37:27
  * @LastEditors: lanyouzi lanyouzi@zju.edu.cn
- * @LastEditTime: 2023-03-13 19:10:34
+ * @LastEditTime: 2023-03-30 22:05:55
  * @FilePath: heap_sort.cpp
  * @Description:
  * @
@@ -11,53 +11,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void filter_down(vector<int>& nums, int i, int l, bool less) {
-    while (i < nums.size()) {
-        if (2 * i + 1 >= l) {
-            return;
-        }
-        int left = nums[2 * i + 1];
-        int right;
-        bool go_left;
-        if (less) {
-            right = 2 * i + 2 < l ? nums[2 * i + 2] : INT_MIN;
-            int max_val = max(left, right);
-            go_left = (left > right);
-            if (nums[i] >= max_val) {
-                return;
-            }
-        } else {
-            right = 2 * i + 2 < l ? nums[2 * i + 2] : INT_MAX;
-            int min_val = min(left, right);
-            go_left = (left < right);
-            if (nums[i] <= min_val) {
-                return;
-            }
-        }
-        if (go_left) {
-            swap(nums[i], nums[2 * i + 1]);
-            i = 2 * i + 1;
-        } else {
-            swap(nums[i], nums[2 * i + 2]);
-            i = 2 * i + 2;
-        }
-    }
-}
-void heap_sort(vector<int>& nums, bool less = true) {
+// advanced insertion sort
+void shell_sort(vector<int>& nums, bool less = true) {
     // heap initialization
     int n = nums.size();
-    for (int i = n / 2 - 1; i >= 0; i--) {
-        filter_down(nums, i, n, less);
-    }
-    //
-    for (int i = n - 1; i >= 0; i--) {
-        swap(nums[0], nums[i]);
-        filter_down(nums, 0, i, less);
+    for (int step = n/2; step > 0; step /= 2) {
+        for (int i = step; i<n; i++) {
+            int j = i;
+            int temp = nums[j];
+            while (j-step>=0 && nums[j-step]>temp) {
+                nums[j]=nums[j-step];
+                j-=step;
+            }
+            nums[j] = temp;
+        }
     }
 }
 int main() {
     vector<int> v = {3, 2, 6, 8, 4, 7, 9, 0};
-    heap_sort(v);
+    shell_sort(v);
     for (auto& item : v) {
         cout << item << " ";
     }

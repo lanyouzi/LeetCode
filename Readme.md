@@ -258,6 +258,8 @@ void backtrack(int i){
 
 ### Monotone Priority Stack
 
+1. [1019] 链表中的下一个更大节点
+
 ### Number Theory
 
 1. [172] 阶乘后的零

@@ -23,6 +23,7 @@
 1. [6367. 求出最多标记下标 - 力扣（Leetcode）](https://leetcode.cn/problems/find-the-maximum-number-of-marked-indices/description/)：匹配最后$n/2$对，所以 `right`从数组后半部开始查找。
 2. [33. 搜索旋转排序数组 - 力扣（Leetcode）](https://leetcode.cn/problems/search-in-rotated-sorted-array/description/?favorite=2cktkvj)：主要矛盾并不是 `target`与 `nums[mid]`的大小，而是前后是否有序
 3. 先操作再判断，符合正常逻辑；先判断再操作，需要在循环中额外加一层判断
+4. 树形DP：构造边集需要加入双向边，并且确定根是哪个节点。dfs时用fail判断遍历来源。
 
 ## Solution
 
@@ -48,7 +49,8 @@
 
 ### Greedy Search
 
-1. [1798] 你能构造出连续值的最大数目
+1. [1147] 段式回文
+2. [1798] 你能构造出连续值的最大数目
 
 ### Binary Search
 
@@ -166,6 +168,7 @@ for (int len = 2; len <= n; ++len) {
 #### DFS
 
 1. 树的直径：树形DP/搜两次，看作无向无环图
+2. [1026] 节点与其祖先之间的最大差值：遍历时记录最大最小值
 
 #### BST（二叉搜索树）
 

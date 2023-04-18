@@ -21,16 +21,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int maxn = 2e5 + 5;
-string a;
+string a;               // R/B
 vector<int> e[maxn];    // 邻接表e
 long long ans = 0;
 
-// 令dp[i]点为根的子树中同色联通块的个数，那么如果我们从1号点开始算，最后dp[1]得到的就是整棵树的同色联通块个数。
+// 令dp[i]表示以点i为根的子树中同色联通块的个数，那么如果我们从1号点开始算，最后dp[1]得到的就是整棵树的同色联通块个数。
 // dp[i] = \sum{dp[j]+[color[i]!=color[j]]}
 int dp[maxn];
 
 void dfs(int u, int fa) {
-    // 如上图，在dfs之前假设最开始只有u孤零零的一个点
     dp[u] = 1;
     for (int v : e[u]) {
         if (v == fa)
@@ -44,11 +43,11 @@ void dfs(int u, int fa) {
     }
 }
 
-void dfs1(int u, int fa) {
+void cal(int u, int fa) {
     for (int v : e[u]) {
         if (v == fa)
             continue;
-        dfs1(v, u);
+        cal(v, u);
         // 计算边的贡献
         int x = dp[1] - dp[v];
         if (a[u - 1] == a[v - 1])
@@ -69,7 +68,7 @@ int main() {
     // 第一遍dfs求出dp数组
     dfs(1, -1);
     // 第二遍dfs计算每条边的贡献
-    dfs1(1, -1);
+    cal(1, -1);
     cout << ans << endl;
     return 0;
 }

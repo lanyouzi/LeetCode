@@ -15,7 +15,7 @@ public:
         for (int i=2; i<=n; i++) {
             for (int j=i-1; j>=1; j--) {
                 int differ = nums[i-1] - nums[j-1];
-                dp[i][differ+500] = dp[j][differ+500] + 1;
+                dp[i][differ+500] = max(dp[i][differ+500], dp[j][differ+500] + 1);
                 ans = max(dp[i][differ+500], ans);
             }
         }

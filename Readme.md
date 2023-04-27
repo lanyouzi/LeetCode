@@ -282,6 +282,7 @@ void backtrack(int i){
 #### Map
 
 1. [567] 字符串的排列
+2. [1048] 最长字符串链：dp+hash_map
 
 ### Aho-Corasick Automaton (AC自动机)
 

@@ -1,12 +1,12 @@
-/*** 
+/***
  * @Author: lanyouzi lanyouzi@zju.edu.cn
  * @Date: 2022-09-29 11:21:49
  * @LastEditors: lanyouzi lanyouzi@zju.edu.cn
- * @LastEditTime: 2023-02-11 10:48:34
- * @FilePath: \LeetCode\templates\KMP.cpp
- * @Description: 
+ * @LastEditTime: 2023-09-24 15:33:23
+ * @FilePath: KMP.cpp
+ * @Description:
  * @
- * @Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
+ * @Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -51,7 +51,7 @@ vector<int> init_include(const string& pat) {
     vector<int> next(n, 0);
     for (int i = 1; i < n; ++i) {
         int j = next[i - 1];
-        while (j>0 && pat[i] != pat[j])
+        while (j > 0 && pat[i] != pat[j])
             j = next[j - 1];
         if (pat[i] == pat[j]) {
             j++;
@@ -67,15 +67,15 @@ int kmp_include(const string& txt, const string& pat) {
     vector<int> next = init_include(pat);
     while (i < tlen && j < plen) {
         // 公共前缀串长度为0，重新匹配模式串
-        // 当前字符相符，后进一位
+        // 当前字符相同，或pat指向-1，后进一位
         if (j == -1 || txt[i] == pat[j]) {
             i++;
             j++;
         } else {
             j = next[j] - 1;
         }
-        if (j==plen) {
-            return i-plen;
+        if (j == plen) {
+            return i - plen;
         }
     }
     return -1;
@@ -83,33 +83,33 @@ int kmp_include(const string& txt, const string& pat) {
 
 // 另一种KMP写法
 vector<int> find_occurrences(const string& txt, const string& pat) {
-  string cur = pat + '#' + txt;
-  int tlen = txt.size(), plen = pat.size();
-  vector<int> v;
-  vector<int> next = init_include(cur);
-  for (int i = plen + 1; i <= tlen + plen; i++) {
-    if (next[i] == plen)
-      v.push_back(i - 2 * plen);
-  }
-  return v;
+    string cur = pat + '#' + txt;
+    int tlen = txt.size(), plen = pat.size();
+    vector<int> v;
+    vector<int> next = init_include(cur);
+    for (int i = plen + 1; i <= tlen + plen; i++) {
+        if (next[i] == plen)
+            v.push_back(i - 2 * plen);
+    }
+    return v;
 }
 
 int main() {
     string s = "abbabdabbabe";
     string pat = "abbabe";
-    for (auto item : pat) {
-        cout << item << '\t';
-    }
-    cout << endl;
-    auto v = init_exclude(pat);
-    for (auto item : v) {
-        cout << item << '\t';
-    }
-    cout << endl;
-    auto v2 = init_include(pat);
-    for (auto item : v2) {
-        cout << item << '\t';
-    }
-    cout << endl << kmp_include(s, pat) << " " << kmp_exclude(s, pat);
+    // for (auto item : pat) {
+    //     cout << item << '\t';
+    // }
+    // cout << endl;
+    // auto v = init_exclude(pat);
+    // for (auto item : v) {
+    //     cout << item << '\t';
+    // }
+    // cout << endl;
+    // auto v2 = init_include(pat);
+    // for (auto item : v2) {
+    //     cout << item << '\t';
+    // }
+    // cout << endl << kmp_include(s, pat) << " " << kmp_exclude(s, pat);
     return 0;
 }
